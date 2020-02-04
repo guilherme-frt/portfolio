@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
+var watch = require('gulp-watch');
 
 sass.compiler = require('node-sass');
 
@@ -9,12 +10,9 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('./css'));
 });
 
-gulp.task('sass:watch', function () {
-  gulp.watch('./sass/**/*.sass', ['sass']);
+gulp.task('watch', function () {
+  gulp.watch('./sass/**/*.sass', gulp.series('sass'));
 });
 
-
-//task default gulp
-gulp.task('default', async function(){
-
-});
+//inicializador do gulp
+gulp.task('default', gulp.series('sass', 'watch'));
